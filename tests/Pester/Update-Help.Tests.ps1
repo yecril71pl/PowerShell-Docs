@@ -1,22 +1,11 @@
 # Test Settings:
-# This is the list of PowerShell Core modules for which we test update-help
-$powershellCoreModules = @(
-    "Microsoft.PowerShell.Host"
-    "Microsoft.PowerShell.Core"
-    "Microsoft.PowerShell.Diagnostics"
-    "Microsoft.PowerShell.Management"
-    "Microsoft.PowerShell.Security"
-    "Microsoft.PowerShell.Utility"
-    "Microsoft.WsMan.Management"
-)
-
 # The file extension for the help content on the Download Center.
 # For Linux we use zip, and on Windows we use $extension.
 $extension = ".cab"
 
-# This is the list of test cases -- each test case represents a PowerShell Core module.
 FUNCTION GET-TESTCASES {
-[OUTPUTTYPE([HASHTABLE])] PARAM()
+[OUTPUTTYPE([STRING], [HASHTABLE])] PARAM()
+# This is the list of test cases -- each test case represents a PowerShell Core module.
 [HASHTABLE] $testCases = @{
 
     "Microsoft.PowerShell.Core" = @{
@@ -68,11 +57,23 @@ FUNCTION GET-TESTCASES {
         HelpInstallationPath = "$pshome\en-US"
     }
 }
+# This is the list of PowerShell Core modules for which we test update-help
+[STRING] $powershellCoreModules = @'
+ Microsoft.PowerShell.Host 
+ Microsoft.PowerShell.Core 
+ Microsoft.PowerShell.Diagnostics 
+ Microsoft.PowerShell.Management 
+ Microsoft.PowerShell.Security
+ Microsoft.PowerShell.Utility
+ Microsoft.WsMan.Management
+'@
+
 
 if(($PSVersionTable.PSVersion.Major -ge 5) -and ($PSVersionTable.PSVersion.Minor -ge 1))
 {
+[STRING] $MODULENAME = 'Microsoft.PowerShell.LocalAccounts'
     $testCases += @{
-        "Microsoft.PowerShell.LocalAccounts" = @{
+        $MODULENAME = @{
             HelpFiles            = "Microsoft.Powershell.LocalAccounts.dll-help.xml"
             HelpInfoFiles        = "Microsoft.PowerShell.LocalAccounts_8e362604-2c0b-448f-a414-a6a690a644e2_HelpInfo.xml"
             CompressedFiles      = "Microsoft.PowerShell.LocalAccounts_8e362604-2c0b-448f-a414-a6a690a644e2_en-US_HelpContent$extension"
@@ -80,14 +81,14 @@ if(($PSVersionTable.PSVersion.Major -ge 5) -and ($PSVersionTable.PSVersion.Minor
         }
     }
 
-    $powershellCoreModules += "Microsoft.PowerShell.LocalAccounts"
+    $powershellCoreModules += " $MODULENAME"
 
 }
 
 # These are the inbox modules.
 #$modulesInBox = @("Microsoft.PowerShell.Core"
 #    Get-Module -ListAvailable | ForEach-Object{$_.Name}
-$modulesInBox = $powershellCoreModules
+$powershellCoreModules
 $TESTCASES
 }
 
@@ -124,8 +125,9 @@ function RunUpdateHelpTests
     param (
         [switch]$useSourcePath
     )
-[HASHTABLE] $TESTCASES = GET-TESTCASES
-    foreach ($moduleName in $modulesInBox)
+[STRING] $MODULESINBOX, [HASHTABLE] $TESTCASES = GET-TESTCASES
+[STRING] $MODULENAME = $NULL
+    foreach ($moduleName in -SPLIT $modulesInBox)
     {
         It "Validate Update-Help for module '$moduleName'" {
 
