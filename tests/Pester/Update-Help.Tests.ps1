@@ -141,7 +141,7 @@ function RunUpdateHelpTests
             {
                 $SOURCEPATHPARAM['SourcePath'] = "$PSScriptRoot\..\..\updatablehelp\5.1\$moduleName"
             }
-            Update-Help -Module:$moduleName -Force -UICulture en-US:@SOURCEPATHPARAM
+            Update-Help -Module:$moduleName -Force -UICulture:en-US @SOURCEPATHPARAM
 [COLLECTIONS.GENERIC.DICTIONARY[ STRING, OBJECT ]] $FORWARD =
 [COLLECTIONS.GENERIC.KEYVALUEPAIR[ STRING, OBJECT ][]] (
 GV HELPINSTALLATIONPATH, HelpFiles, GetFiles | % { NEW-OBJECT 'COLLECTIONS.GENERIC.KEYVALUEPAIR[ STRING, OBJECT ]' $_.NAME, $_.VALUE })
