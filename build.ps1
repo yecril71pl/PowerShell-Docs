@@ -127,8 +127,7 @@ Get-ChildItem $ReferenceDocset -Directory -Exclude $excludeList | ForEach-Object
                         "--from=gfm",
                         "--to=plain+multiline_tables",
                         "--columns=75",
-                        "--output=$aboutFileOutputFullName",
-                        "--quiet"
+                        "--output=$aboutFileOutputFullName"
                     )
 
                     Get-ContentWithoutHeader $aboutFileFullName | & $pandocExePath $pandocArgs
