@@ -102,10 +102,11 @@ function ValidateInstalledHelpContent
 {
     param (
         [ValidateNotNullOrEmpty()]
-        [string]$moduleName
+        [PARAMETER()] [string] $moduleName
+        [PARAMETER()] [STRING] $HELPINSTALLATIONPATH
     )
 
-    $helpFilesInstalled = @(GetFiles -path $testCases[$moduleName].HelpInstallationPath | ForEach-Object {Split-Path $_ -Leaf})
+    $helpFilesInstalled = @(GetFiles -path $HelpInstallationPath | ForEach-Object {Split-Path $_ -Leaf})
     $expectedHelpFiles = @($testCases[$moduleName].HelpFiles)
     $helpFilesInstalled.Count | Should Be $expectedHelpFiles.Count
 
@@ -140,7 +141,7 @@ function RunUpdateHelpTests
                 Update-Help -Module $moduleName -Force
             }
 
-            & $ValidateInstalledHelpContent -moduleName $moduleName
+            & $ValidateInstalledHelpContent -moduleName:$moduleName -HelpInstallationPath:$HelpInstallationPath
         } -TestCases:$MODULETESTCASES
     }
 }
