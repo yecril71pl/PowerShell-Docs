@@ -124,6 +124,7 @@ function RunUpdateHelpTests
     foreach ($moduleName in $modulesInBox)
     { [HASHTABLE] $MODULETESTCASES =  $testCases[$moduleName]
    $MODULETESTCASES[ 'moduleName' ] = $moduleName
+   $MODULETESTCASES[ 'ValidateInstalledHelpContent' ] = GI FUNCTION:ValidateInstalledHelpContent
         It "Validate Update-Help for module '$moduleName'" {
 
             # If the help file is already installed, delete it.
@@ -139,7 +140,7 @@ function RunUpdateHelpTests
                 Update-Help -Module $moduleName -Force
             }
 
-            ValidateInstalledHelpContent -moduleName $moduleName
+            & $ValidateInstalledHelpContent -moduleName $moduleName
         } -TestCases:$MODULETESTCASES
     }
 }
