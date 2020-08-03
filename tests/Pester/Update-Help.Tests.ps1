@@ -139,7 +139,7 @@ function RunUpdateHelpTests
 
             if ($useSourcePath)
             {
-                $SOURCEPATHPARAM['SourcePath'] = "$PSScriptRoot\..\..\updatablehelp\5.1\$moduleName"
+                $SOURCEPATHPARAM['SourcePath'] = JOIN-PATH $PSScriptRoot .. .. updatablehelp 5.1 $moduleName
             }
             Update-Help -Module:$moduleName -Force -UICulture:en-US @SOURCEPATHPARAM
 [COLLECTIONS.GENERIC.DICTIONARY[ STRING, OBJECT ]] $FORWARD =
