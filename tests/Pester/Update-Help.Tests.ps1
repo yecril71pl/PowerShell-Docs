@@ -15,7 +15,9 @@ $powershellCoreModules = @(
 $extension = ".cab"
 
 # This is the list of test cases -- each test case represents a PowerShell Core module.
-$testCases = @{
+FUNCTION GET-TESTCASES {
+[OUTPUTTYPE([HASHTABLE])] PARAM()
+[HASHTABLE] $testCases = @{
 
     "Microsoft.PowerShell.Core" = @{
         HelpFiles            = "System.Management.Automation.dll-help.xml"
@@ -86,6 +88,8 @@ if(($PSVersionTable.PSVersion.Major -ge 5) -and ($PSVersionTable.PSVersion.Minor
 #$modulesInBox = @("Microsoft.PowerShell.Core"
 #    Get-Module -ListAvailable | ForEach-Object{$_.Name}
 $modulesInBox = $powershellCoreModules
+$TESTCASES
+}
 
 function GetFiles
 {
@@ -120,7 +124,7 @@ function RunUpdateHelpTests
     param (
         [switch]$useSourcePath
     )
-
+[HASHTABLE] $TESTCASES = GET-TESTCASES
     foreach ($moduleName in $modulesInBox)
     {
         It "Validate Update-Help for module '$moduleName'" {
