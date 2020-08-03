@@ -1,0 +1,3 @@
+#!/usr/bin/env pwsh
+INSTALL-MODULE PESTER
+INVOKE-PESTER @ARGS
