@@ -6,7 +6,7 @@ name: CI
 # events but only for the yecril71pl-core-test branch
 on:
   push:
-    branches: [ yecril71pl-core-test ]
+    branches: [ pester5 ]
   pull_request:
     branches: [ yecril71pl-core-test ]
 
