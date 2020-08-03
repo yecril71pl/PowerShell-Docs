@@ -103,7 +103,7 @@ function ValidateInstalledHelpContent
     param (
         [ValidateNotNullOrEmpty()]
         [PARAMETER()] [string] $moduleName,
-        [PARAMETER()] [STRING] $HELPINSTALLATIONPATH
+        [PARAMETER()] [STRING] $HELPINSTALLATIONPATH, [PARAMETER()] [STRING] $HelpFiles
     )
 
     $helpFilesInstalled = @(& $GetFiles -path $HelpInstallationPath | ForEach-Object {Split-Path $_ -Leaf})
