@@ -107,7 +107,7 @@ function ValidateInstalledHelpContent
     )
 
     $helpFilesInstalled = @(& $GetFiles -path $HelpInstallationPath | ForEach-Object {Split-Path $_ -Leaf})
-    $expectedHelpFiles = @($testCases[$moduleName].HelpFiles)
+    $expectedHelpFiles = @($HelpFiles)
     $helpFilesInstalled.Count | Should Be $expectedHelpFiles.Count
 
     foreach ($fileName in $expectedHelpFiles)
@@ -142,7 +142,7 @@ function RunUpdateHelpTests
                 Update-Help -Module $moduleName -Force
             }
 
-            & $ValidateInstalledHelpContent -moduleName:$moduleName -HelpInstallationPath:$HelpInstallationPath
+            & $ValidateInstalledHelpContent @PSBOUNDPARAMETERS
         } -TestCases:$MODULETESTCASES
     }
 }
