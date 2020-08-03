@@ -106,7 +106,7 @@ function ValidateInstalledHelpContent
         [PARAMETER()] [STRING] $HELPINSTALLATIONPATH
     )
 
-    $helpFilesInstalled = @(GetFiles -path $HelpInstallationPath | ForEach-Object {Split-Path $_ -Leaf})
+    $helpFilesInstalled = @(& $GetFiles -path $HelpInstallationPath | ForEach-Object {Split-Path $_ -Leaf})
     $expectedHelpFiles = @($testCases[$moduleName].HelpFiles)
     $helpFilesInstalled.Count | Should Be $expectedHelpFiles.Count
 
@@ -125,7 +125,8 @@ function RunUpdateHelpTests
     foreach ($moduleName in $modulesInBox)
     { [HASHTABLE] $MODULETESTCASES =  $testCases[$moduleName]
    $MODULETESTCASES[ 'moduleName' ] = $moduleName
-   $MODULETESTCASES[ 'ValidateInstalledHelpContent' ] = GI FUNCTION:ValidateInstalledHelpContent
+   -SPLIT 'ValidateInstalledHelpContent GetFiles' | & {
+   $MODULETESTCASES[ $_ ] = GI FUNCTION:$_
         It "Validate Update-Help for module '$moduleName'" {
 
             # If the help file is already installed, delete it.
