@@ -11,6 +11,8 @@ if ($ShowProgress) { $ProgressPreference = 'Continue' }
 $tempDir = [System.IO.Path]::GetTempPath()
 
 # Pandoc source URL
+[STRING] $pandocExePath = (GCM pandoc).SOURCE
+IF (-NOT $pandocExePath) {
 $panDocVersion = "2.7.3"
 $pandocSourceURL = "https://github.com/jgm/pandoc/releases/download/$panDocVersion/pandoc-$panDocVersion-windows-x86_64.zip"
 
@@ -20,6 +22,7 @@ Invoke-WebRequest -Uri $pandocSourceURL -OutFile $pandocZipPath
 
 Expand-Archive -Path $pandocZipPath -DestinationPath $pandocDestinationPath -Force
 $pandocExePath = Join-Path (Join-Path $pandocDestinationPath "pandoc-$panDocVersion-windows-x86_64") "pandoc.exe"
+}
 
 # Install ThreadJob if not available
 $threadJob = Get-Module ThreadJob -ListAvailable
