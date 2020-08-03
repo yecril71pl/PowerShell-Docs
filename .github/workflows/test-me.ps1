@@ -1,4 +1,4 @@
 #!/usr/bin/env pwsh
 Set-PSRepository PSGALLERY -I:Trusted
 INSTALL-MODULE PESTER
-INVOKE-PESTER -EnableExit @ARGS
+INVOKE-PESTER @ARGS -EnableExit
