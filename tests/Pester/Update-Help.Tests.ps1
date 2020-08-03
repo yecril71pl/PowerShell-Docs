@@ -103,12 +103,14 @@ function ValidateInstalledHelpContent
     param (
         [ValidateNotNullOrEmpty()]
         [PARAMETER()] [string] $moduleName,
-        [PARAMETER()] [STRING] $HELPINSTALLATIONPATH, [PARAMETER()] [STRING] $HelpFiles
+        [PARAMETER(MANDATORY)] [ValidateNotNullOrEmpty()] [STRING] $HELPINSTALLATIONPATH,
+         [PARAMETER(MANDATORY)] [ValidateNotNullOrEmpty()] [STRING[]] $HelpFiles,
+         [PARAMETER(MANDATORY)] [ValidateNotNullOrEmpty()] [Management.Automation.FunctionInfo] $GetFiles
     )
 
     $helpFilesInstalled = @(& $GetFiles -path $HelpInstallationPath | ForEach-Object {Split-Path $_ -Leaf})
     $expectedHelpFiles = @($HelpFiles)
-    $helpFilesInstalled.Count | Should Be $expectedHelpFiles.Count
+    $helpFilesInstalled.Count | Should -Be $expectedHelpFiles.Count
 
     foreach ($fileName in $expectedHelpFiles)
     {
@@ -124,7 +126,7 @@ function RunUpdateHelpTests
 
     foreach ($moduleName in $modulesInBox)
     { [HASHTABLE] $MODULETESTCASES =  $testCases[$moduleName]
-   $MODULETESTCASES[ 'moduleName' ] = $moduleName
+   GV moduleName, useSourcePath | % { $MODULETESTCASES[ $_.Name ] = $_.VALUE }
    -SPLIT 'ValidateInstalledHelpContent GetFiles' | % {
    $MODULETESTCASES[ $_ ] = GI FUNCTION:$_ }
         It "Validate Update-Help for module '$moduleName'" {
@@ -133,16 +135,17 @@ function RunUpdateHelpTests
             Get-ChildItem $HelpInstallationPath -Include @("about_*.txt","*help.xml") -Recurse -ea SilentlyContinue |
             Remove-Item -Force -ErrorAction SilentlyContinue
 
+            [HASHTABLE] $SOURCEPATHPARAM = @{}
+
             if ($useSourcePath)
             {
-                Update-Help -Module $moduleName -Force -SourcePath "$PSScriptRoot\..\..\updatablehelp\5.1\$moduleName"
+                $SOURCEPATHPARAM['SourcePath'] = "$PSScriptRoot\..\..\updatablehelp\5.1\$moduleName"
             }
-            else
-            {
-                Update-Help -Module $moduleName -Force
-            }
-
-            & $ValidateInstalledHelpContent @PSBOUNDPARAMETERS
+            Update-Help -Module:$moduleName -Force -UICulture en-US:@SOURCEPATHPARAM
+[COLLECTIONS.GENERIC.DICTIONARY[ STRING, OBJECT ]] $FORWARD =
+[COLLECTIONS.GENERIC.KEYVALUEPAIR[ STRING, OBJECT ][]] (
+GV HELPINSTALLATIONPATH, HelpFiles, GetFiles | % { NEW-OBJECT 'COLLECTIONS.GENERIC.KEYVALUEPAIR[ STRING, OBJECT ]' $_.NAME, $_.VALUE })
+            & $ValidateInstalledHelpContent @FORWARD
         } -TestCases:$MODULETESTCASES
     }
 }
