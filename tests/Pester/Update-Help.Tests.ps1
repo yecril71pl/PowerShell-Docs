@@ -126,7 +126,7 @@ function RunUpdateHelpTests
         It "Validate Update-Help for module '$moduleName'" {
 
             # If the help file is already installed, delete it.
-            Get-ChildItem $testCases[$moduleName].HelpInstallationPath -Include @("about_*.txt","*help.xml") -Recurse -ea SilentlyContinue |
+            Get-ChildItem $HelpInstallationPath -Include @("about_*.txt","*help.xml") -Recurse -ea SilentlyContinue |
             Remove-Item -Force -ErrorAction SilentlyContinue
 
             if ($useSourcePath)
@@ -139,7 +139,7 @@ function RunUpdateHelpTests
             }
 
             ValidateInstalledHelpContent -moduleName $moduleName
-        }
+        } -TestCases:$testCases[$moduleName]
     }
 }
 
