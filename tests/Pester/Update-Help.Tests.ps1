@@ -122,7 +122,8 @@ function RunUpdateHelpTests
     )
 
     foreach ($moduleName in $modulesInBox)
-    {
+    { [HASHTABLE] $MODULETESTCASES =  $testCases[$moduleName]
+   $MODULETESTCASES[moduleName] = $moduleName
         It "Validate Update-Help for module '$moduleName'" {
 
             # If the help file is already installed, delete it.
@@ -139,7 +140,7 @@ function RunUpdateHelpTests
             }
 
             ValidateInstalledHelpContent -moduleName $moduleName
-        } -TestCases:$testCases[$moduleName]
+        } -TestCases:$MODULETESTCASES
     }
 }
 
