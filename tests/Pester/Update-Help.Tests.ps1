@@ -14,7 +14,7 @@ Microsoft.WsMan.Management'
 $extension = '.cab'
 
 # This is the default help installation path
-$HelpInstallationPath = JOIN-PATH $home .local/share/powershell Help
+$HelpInstallationPath = JOIN-PATH [MANAGEMENT.AUTOMATION.PLATFORM]::SelectProductNameForDirectory('USER_MODULES') Help
 # This is the list of test cases -- each test case represents a PowerShell Core module.
 $testCases = @{
 
