@@ -28,7 +28,8 @@ jobs:
 
     # Runs a single command using the runners shell
     - name: Build and test
-      run: pwsh "$GITHUB_WORKSPACE/.github/workflows/test-me.ps1" "$GITHUB_WORKSPACE"
+      run: pwsh -C UPDATE-HELP Microsoft.PowerShell.Core -SO:NUL
+      # "$GITHUB_WORKSPACE/.github/workflows/test-me.ps1" "$GITHUB_WORKSPACE"
 
     # Runs a set of commands using the runners shell
     - name: Run a multi-line script
