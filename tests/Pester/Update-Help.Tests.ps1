@@ -142,7 +142,7 @@ function RunUpdateHelpTests
             {
                 $SOURCEPATHPARAM['SourcePath'] = JOIN-PATH $PSScriptRoot .. .. updatablehelp 5.1 $moduleName
             }
-            strace -e file pwsh -Command Update-Help -Module:$moduleName -Force @SOURCEPATHPARAM
+            strace -e file,process -f pwsh -Command Update-Help -Module:$moduleName -Force @SOURCEPATHPARAM
 [COLLECTIONS.GENERIC.DICTIONARY[ STRING, OBJECT ]] $FORWARD =
 [COLLECTIONS.GENERIC.KEYVALUEPAIR[ STRING, OBJECT ][]] (
 GV HELPINSTALLATIONPATH, HelpFiles, GetFiles | % { NEW-OBJECT 'COLLECTIONS.GENERIC.KEYVALUEPAIR[ STRING, OBJECT ]' $_.NAME, $_.VALUE })
