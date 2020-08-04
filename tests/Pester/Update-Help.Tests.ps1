@@ -95,7 +95,7 @@ function GetFiles
         [ValidateNotNullOrEmpty()]
         [string]$path
     )
-ls -R $path | WRITE-VERBOSE
+$path | SPLIT-PATH | SPLIT-PATH | GCI -R | WRITE-VERBOSE
     Get-ChildItem $path -Include $fileType -Recurse -ea SilentlyContinue | Select-Object -ExpandProperty FullName
 }
 
