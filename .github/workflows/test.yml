@@ -28,7 +28,7 @@ jobs:
 
     # Runs a single command using the runners shell
     - name: Build and test
-      run: pwsh -C UPDATE-HELP Microsoft.PowerShell.Core- -SO:NUL
+      run: pwsh -C UPDATE-HELP Microsoft.PowerShell.Core- -SOURCEPATH:
       # "$GITHUB_WORKSPACE/.github/workflows/test-me.ps1" "$GITHUB_WORKSPACE"
 
     # Runs a set of commands using the runners shell
