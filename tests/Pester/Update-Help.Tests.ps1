@@ -95,7 +95,7 @@ function GetFiles
         [ValidateNotNullOrEmpty()]
         [string]$path
     )
-$path | SPLIT-PATH | SPLIT-PATH | GCI -R | WRITE-VERBOSE
+# $path | SPLIT-PATH | SPLIT-PATH | GCI -R | WRITE-VERBOSE
     Get-ChildItem $path -Include $fileType -Recurse -ea SilentlyContinue | Select-Object -ExpandProperty FullName
 }
 
@@ -142,7 +142,7 @@ function RunUpdateHelpTests
             {
                 $SOURCEPATHPARAM['SourcePath'] = JOIN-PATH $PSScriptRoot .. .. updatablehelp 5.1 $moduleName
             }
-            Update-Help -Module:$moduleName -Force @SOURCEPATHPARAM
+            strace -e file pwsh -Command Update-Help -Module:$moduleName -Force @SOURCEPATHPARAM
 [COLLECTIONS.GENERIC.DICTIONARY[ STRING, OBJECT ]] $FORWARD =
 [COLLECTIONS.GENERIC.KEYVALUEPAIR[ STRING, OBJECT ][]] (
 GV HELPINSTALLATIONPATH, HelpFiles, GetFiles | % { NEW-OBJECT 'COLLECTIONS.GENERIC.KEYVALUEPAIR[ STRING, OBJECT ]' $_.NAME, $_.VALUE })
