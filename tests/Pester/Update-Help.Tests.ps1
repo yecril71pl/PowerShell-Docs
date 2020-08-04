@@ -18,49 +18,49 @@ $HelpInstallationPath = JOIN-PATH $home Documents PowerShell Help
 # This is the list of test cases -- each test case represents a PowerShell Core module.
 $testCases = @{
 
-    Microsoft.PowerShell.Core = @{
+    'Microsoft.PowerShell.Core' = @{
         HelpFiles            = 'System.Management.Automation.dll-help.xml'
         HelpInfoFiles        = 'Microsoft.PowerShell.Core_00000000-0000-0000-0000-000000000000_HelpInfo.xml'
         CompressedFiles      = "Microsoft.PowerShell.Core_00000000-0000-0000-0000-000000000000_en-US_HelpContent$extension"
         HelpInstallationPath = $HelpInstallationPath
     }
 
-    Microsoft.PowerShell.Diagnostics = @{
+    'Microsoft.PowerShell.Diagnostics' = @{
         HelpFiles            = 'Microsoft.PowerShell.Commands.Diagnostics.dll-help.xml'
         HelpInfoFiles        = 'Microsoft.PowerShell.Diagnostics_ca046f10-ca64-4740-8ff9-2565dba61a4f_HelpInfo.xml'
         CompressedFiles      = "Microsoft.PowerShell.Diagnostics_ca046f10-ca64-4740-8ff9-2565dba61a4f_en-US_helpcontent$extension"
         HelpInstallationPath = $HelpInstallationPath
     }
 
-    Microsoft.PowerShell.Host = @{
+    'Microsoft.PowerShell.Host' = @{
         HelpFiles            = 'Microsoft.PowerShell.ConsoleHost.dll-help.xml'
         HelpInfoFiles        = 'Microsoft.PowerShell.Host_56d66100-99a0-4ffc-a12d-eee9a6718aef_HelpInfo.xml'
         CompressedFiles      = "Microsoft.PowerShell.Host_56d66100-99a0-4ffc-a12d-eee9a6718aef_en-US_helpcontent$extension"
         HelpInstallationPath = $HelpInstallationPath
     }
 
-    Microsoft.PowerShell.Management = @{
+    'Microsoft.PowerShell.Management' = @{
         HelpFiles            = 'Microsoft.PowerShell.Commands.Management.dll-help.xml'
         HelpInfoFiles        = 'Microsoft.PowerShell.Management_eefcb906-b326-4e99-9f54-8b4bb6ef3c6d_HelpInfo.xml'
         CompressedFiles      = "Microsoft.PowerShell.Management_eefcb906-b326-4e99-9f54-8b4bb6ef3c6d_en-US_helpcontent$extension"
         HelpInstallationPath = $HelpInstallationPath
     }
 
-    Microsoft.PowerShell.Security = @{
+    'Microsoft.PowerShell.Security' = @{
         HelpFiles            = 'Microsoft.PowerShell.Security.dll-help.xml'
         HelpInfoFiles        = 'Microsoft.PowerShell.Security_a94c8c7e-9810-47c0-b8af-65089c13a35a_HelpInfo.xml'
         CompressedFiles      = "Microsoft.PowerShell.Security_a94c8c7e-9810-47c0-b8af-65089c13a35a_en-US_helpcontent$extension"
         HelpInstallationPath = $HelpInstallationPath
     }
 
-    Microsoft.PowerShell.Utility = @{
+    'Microsoft.PowerShell.Utility' = @{
         HelpFiles            = 'Microsoft.PowerShell.Commands.Utility.dll-Help.xml", "Microsoft.PowerShell.Utility-help.xml'
         HelpInfoFiles        = 'Microsoft.PowerShell.Utility_1da87e53-152b-403e-98dc-74d7b4d63d59_HelpInfo.xml'
         CompressedFiles      = "Microsoft.PowerShell.Utility_1da87e53-152b-403e-98dc-74d7b4d63d59_en-US_helpcontent$extension"
         HelpInstallationPath = $HelpInstallationPath
     }
 
-    Microsoft.WSMan.Management = @{
+    'Microsoft.WSMan.Management' = @{
         HelpFiles            = 'Microsoft.WSMan.Management.dll-help.xml'
         HelpInfoFiles        = 'Microsoft.WsMan.Management_766204A6-330E-4263-A7AB-46C87AFC366C_HelpInfo.xml'
         CompressedFiles      = "Microsoft.WsMan.Management_766204A6-330E-4263-A7AB-46C87AFC366C_en-US_helpcontent$extension"
@@ -71,7 +71,7 @@ $testCases = @{
 if(($PSVersionTable.PSVersion.Major -ge 5) -and ($PSVersionTable.PSVersion.Minor -ge 1))
 {
     $testCases += @{
-        Microsoft.PowerShell.LocalAccounts = @{
+        'Microsoft.PowerShell.LocalAccounts' = @{
             HelpFiles            = 'Microsoft.Powershell.LocalAccounts.dll-help.xml'
             HelpInfoFiles        = 'Microsoft.PowerShell.LocalAccounts_8e362604-2c0b-448f-a414-a6a690a644e2_HelpInfo.xml'
             CompressedFiles      = "Microsoft.PowerShell.LocalAccounts_8e362604-2c0b-448f-a414-a6a690a644e2_en-US_HelpContent$extension"
@@ -79,7 +79,7 @@ if(($PSVersionTable.PSVersion.Major -ge 5) -and ($PSVersionTable.PSVersion.Minor
         }
     }
 
-    $powershellCoreModules += "Microsoft.PowerShell.LocalAccounts"
+    $powershellCoreModules += 'Microsoft.PowerShell.LocalAccounts'
 
 }
 
